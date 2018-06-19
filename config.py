@@ -1,5 +1,6 @@
 # coding=utf-8
 import redis
+import logging
 
 class Config(object):
     """工程配置信息"""
@@ -18,6 +19,8 @@ class Config(object):
     SESSION_USE_SIGNER = True  # 让 cookie 中的 session_id 被加密签名处理
     SESSION_REDIS = redis.StrictRedis(host=REDIS_HOST, port=REDIS_PORT)  # 使用 redis 的实例
     PERMANENT_SESSION_LIFETIME = 86400  # session 的有效期，单位是秒
+    # 配置日志等级
+    LOG_LEVEL = logging.DEBUG
 
 
 class DevlopmentConfig(Config):
@@ -26,7 +29,7 @@ class DevlopmentConfig(Config):
 
 class ProductionConfig(Config):
     """生产环境下"""
-    pass
+    LOG_LEVEL = logging.ERROR
 
 config = {
     "development": DevlopmentConfig,
